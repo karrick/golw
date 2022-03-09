@@ -1,12 +1,3 @@
-# golw
-
-Go Log Writer
-
-Provide io.WriteCloser for logs to be written to.
-
-## Example
-
-```Go
 package main // import "github.com/karrick/golw/examples/simple"
 
 import (
@@ -25,6 +16,7 @@ func main() {
 	if err != nil {
 		bail(err)
 	}
+	fmt.Printf("lw: %#v\n", lw)
 
 	for i := 0; i < 128; i++ {
 		n, err := lw.Write([]byte{'.'})
@@ -45,4 +37,3 @@ func bail(err error) {
 	fmt.Fprintf(os.Stderr, "%s: %s\n", filepath.Base(os.Args[0]), err)
 	os.Exit(1)
 }
-```
