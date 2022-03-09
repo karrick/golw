@@ -1,0 +1,2 @@
+# golw
+Go LogWriter
