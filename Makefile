@@ -7,7 +7,7 @@ distclean: clean
 	rm -f 2600-0.txt
 
 test: 2600-0.txt
-	mkdir logs
+	mkdir -p logs
 	go test
 
 2600-0.txt:

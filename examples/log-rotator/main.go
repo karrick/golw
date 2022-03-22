@@ -17,9 +17,9 @@ const (
 )
 
 func main() {
-	cfg := golw.Config{
-		BufferBytes: logBufSize,
-		MaxBytes:    1 * (1 << 20), // 100 MiB
+	cfg := &golw.Config{
+		BufferSizeMax: logBufSize,
+		MaxBytes:      golw.Megabytes(10),
 	}
 
 	lw, err := golw.NewLogWriter(cfg)

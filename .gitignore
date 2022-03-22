@@ -16,4 +16,5 @@ benchmarks/2600-0*.txt
 benchmarks/log-writer/log-writer
 benchmarks/logs/*.log
 benchmarks/lumberjack/lumberjack
+examples/simple/simple
 logs/*.log

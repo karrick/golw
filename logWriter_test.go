@@ -5,8 +5,6 @@ import (
 	_ "embed"
 	"io"
 	"testing"
-
-	"github.com/karrick/gonl"
 )
 
 //go:embed 2600-0.txt
@@ -62,19 +60,17 @@ func TestNewLogWriter(t *testing.T) {
 
 		t.Logf("%#v\n", lw)
 
-		plw := gonl.NewPerLineWriter(lw, 128)
-
 		const total = int64(8 * 1024)
 		lr := io.LimitReader(bytes.NewReader(novel), total)
 
-		nw, err := io.CopyBuffer(plw, lr, make([]byte, 2048))
+		nw, err := io.CopyBuffer(lw, lr, make([]byte, 2048))
 		ensureError(t, err)
 
 		if got, want := nw, total; got != want {
 			t.Errorf("GOT: %v; WANT: %v", got, want)
 		}
 
-		ensureError(t, plw.Close())
+		ensureError(t, lw.Close())
 	})
 
 	t.Run("file smaller than buffer", func(t *testing.T) {
@@ -94,16 +90,10 @@ func TestNewLogWriter(t *testing.T) {
 
 		t.Logf("%#v\n", lw)
 
-		var wc io.WriteCloser
-		wc = lw
-		wc = gonl.NewPerLineWriter(lw, 128)
-		// wc, err = gonl.NewBatchLineWriter(lw, 256)
-		// ensureError(t, err)
-
 		const total = int64(8 * 1024)
 		lr := io.LimitReader(bytes.NewReader(novel), total)
 
-		nw, err := io.CopyBuffer(wc, lr, make([]byte, 2048))
+		nw, err := io.CopyBuffer(lw, lr, make([]byte, 2048))
 		ensureError(t, err)
 
 		if got, want := nw, total; got != want {
